@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <!-- Таблица встроена сюда -->
+        <!-- Таблица -->
         <div class="table-container">
             <table class="products-table">
                 <thead>
