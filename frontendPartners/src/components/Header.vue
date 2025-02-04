@@ -155,7 +155,7 @@
                         <div class="DesktopProfileSelect__U-IhaySX2n"><button class="SelectInput__lrisnicezH"
                                 type="button"><span class="SelectInput__text__iTJIJRJnbm"><span
                                         class="Text__f59jqJ8Q0Y Text--h4__s6ez01K7iD Text--black__ROvaKSdMxc"
-                                        data-name="Text">ProSkills.</span></span><span
+                                        data-name="Text">IT-PRO</span></span><span
                                     class="SelectInput__icon__1T1mM5NtJ0"><span class="InputIcon__U4EonrrBnv"><svg
                                             fill="none" height="16" viewBox="-3 -7 24 24" width="16"
                                             xmlns="http://www.w3.org/2000/svg">

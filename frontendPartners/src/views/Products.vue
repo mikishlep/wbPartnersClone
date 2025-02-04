@@ -9,35 +9,16 @@
                 </router-link>
                 <div class="tabs-container">
                     <ul class="tabs-list" data-name="Tabs">
-                        <li class="tab-item">
-                            <a class="tab-link tab-selected" href="/" data-testid="all-goods-tab-link">
-                                Все товары
-                                <span class="tab-count selected">
-                                    <span class="counter">32</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="tab-item">
-                            <a class="tab-link" href="/" data-testid="improve-cards-tab-link">
-                                Можно улучшить
+                        <li 
+                            v-for="(tab, index) in tabs" 
+                            :key="index" 
+                            :class="['tab-item', { 'tab-selected': selectedTab === index }]" 
+                            @click="selectTab(index)"
+                        >
+                            <a class="tab-link" href="#" :data-testid="tab.testid">
+                                {{ tab.label }}
                                 <span class="tab-count">
-                                    <span class="counter">3</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="tab-item">
-                            <a class="tab-link" href="/" data-testid="error-cards-tab-link">
-                                Черновики
-                                <span class="tab-count">
-                                    <span class="counter">2</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="tab-item">
-                            <a class="tab-link" href="/basket-cards" data-testid="basket-cards-tab-link">
-                                Корзина
-                                <span class="tab-count">
-                                    <span class="counter">0</span>
+                                    <span class="counter">{{ tab.count }}</span>
                                 </span>
                             </a>
                         </li>
@@ -45,13 +26,92 @@
                 </div>
             </div>
         </div>
+
+        <!-- Таблица встроена сюда -->
+        <div class="table-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Отзывы</th>
+                        <th>Остаток</th>
+                        <th>Размеры</th>
+                        <th>Штрих-коды</th>
+                        <th>Теги</th>
+                        <th>Дата обновления</th>
+                        <th>Цвета</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="product in filteredProducts" :key="product.id">
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.reviews }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>{{ product.sizes }}</td>
+                        <td>{{ product.barcodes }}</td>
+                        <td>{{ product.tags }}</td>
+                        <td>{{ product.updatedAt }}</td>
+                        <td>{{ product.colors }}</td>
+                        <td><button @click="editProduct(product.id)">Редактировать</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
-
 export default {
-    name: 'Products'
+    name: 'Products',
+    data() {
+        return {
+            selectedTab: 0,
+            tabs: [
+                { label: 'Все товары', count: 32, testid: 'all-goods-tab-link' },
+                { label: 'Можно улучшить', count: 3, testid: 'improve-cards-tab-link' },
+                { label: 'Черновики', count: 2, testid: 'error-cards-tab-link' },
+                { label: 'Корзина', count: 0, testid: 'basket-cards-tab-link' }
+            ],
+            products: [
+                {
+                    id: 1,
+                    name: "Товар 1",
+                    reviews: 4.5,
+                    stock: 20,
+                    sizes: "M, L, XL",
+                    barcodes: "1234567890",
+                    tags: "новинка, распродажа",
+                    updatedAt: "2025-02-05",
+                    colors: "Красный, Синий"
+                },
+                {
+                    id: 2,
+                    name: "Товар 2",
+                    reviews: 4.2,
+                    stock: 10,
+                    sizes: "S, M, L",
+                    barcodes: "0987654321",
+                    tags: "популярный, летний",
+                    updatedAt: "2025-02-04",
+                    colors: "Черный, Белый"
+                }
+            ]
+        };
+    },
+    computed: {
+        filteredProducts() {
+            return this.products;
+        }
+    },
+    methods: {
+        selectTab(index) {
+            this.selectedTab = index;
+        },
+        editProduct(id) {
+            console.log("Редактирование товара с ID:", id);
+        }
+    }
 }
 </script>
 
@@ -61,11 +121,9 @@ export default {
 }
 
 .add-cards-button {
-    -webkit-text-size-adjust: 100%;
     font-size: 16px;
     font-weight: 500;
     line-height: 20px;
-    text-transform: none;
     cursor: pointer;
     display: inline-flex;
     justify-content: center;
@@ -83,11 +141,6 @@ export default {
 
 .add-cards-button:hover {
     background-color: #7927ce;
-    transition: .3s;
-}
-
-.add-cards-button__text {
-    text-align: center;
 }
 
 .nav-goods {
@@ -100,5 +153,61 @@ export default {
 
 .tabs-container {
     display: flex;
+    margin-left: 24px;
+    overflow-x: auto;
+}
+
+.tabs-list {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.tab-item {
+    margin-right: 4px;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tab-selected {
+    background-color: #e0dceb;
+    border-color: #e0dceb;
+}
+
+.tab-link {
+    color: #000;
+}
+
+.counter {
+    color: #9d9d9d;
+    font-weight: 300;
+    margin-left: 3px;
+}
+
+/* Стили для таблицы */
+.table-container {
+    padding-top: 25px;
+}
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 </style>
