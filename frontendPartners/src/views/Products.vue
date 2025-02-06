@@ -80,12 +80,13 @@
                   {{ product.name }}
                 </div>
                 <div class="product-meta">
-                    <span class="product-subcategory" data-testid="product-subcategory">
-                      {{ product.subcategory }}
-                    </span>
+                  <span class="product-subcategory" data-testid="product-subcategory">
+                    {{ product.subcategory }}
+                  </span>
+                  <span v-if="product.subcategory && product.brand"> · </span>
                   <span class="product-brand" data-testid="product-brand">
-                      {{ product.brand }}
-                    </span>
+                    {{ product.brand }}
+                  </span>
                 </div>
                 <div class="product-codes">
                     <span class="product-wb" data-testid="product-wb">
@@ -543,9 +544,5 @@ td.goodRedact {
   height: 16px;
   color: #b3b3b3;
   transition: fill 0.3s ease;
-}
-
-@media  {
-  
 }
 </style>
