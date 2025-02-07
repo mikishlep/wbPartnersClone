@@ -74,9 +74,14 @@
                           <div class="variants-media">
                             <div data-error="false">
                               <div class="card-media-files-editor" id="media">
-                                <div class="media-dnd-files">
+                                <div class="media-dnd-files"
+                                     @dragover.prevent="handleDragOver"
+                                     @dragleave.prevent="handleDragLeave"
+                                     @drop.prevent="handleDrop"
+                                     :class="{ 'dragover': isDragging }"
+                                >
                                   <div class="uploader-button">
-                                    <button class="uploader-button-button-icon" type="button">
+                                    <button class="uploader-button-button-icon" type="button" @click="triggerFileInput">
                                       <div class="uploader-button-icon">
                                         <svg fill="none" height="112" viewBox="0 0 145 112" width="145"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -172,8 +177,17 @@
                                     >
                                   </div>
                                   <div class="card-media-files-editor-media-files">
-                                    <div v-for="(file, index) in selectedFiles" :key="index">
-                                      {{ file.name }}
+                                    <div v-for="(file, index) in previewFiles" :key="index" class="preview-item">
+                                      <img
+                                          v-if="file.type.startsWith('image/')"
+                                          :src="file.preview"
+                                          alt="Preview"
+                                          class="preview-image"
+                                      >
+                                      <div v-else class="file-info">
+                                        <svg><!-- иконка для видео --></svg>
+                                        <span>{{ file.name }}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -393,7 +407,8 @@ export default {
         title: 'Укажите наименование'
       },
       isWidgetContentVisible: false,
-      selectedFiles: []
+      previewFiles: [],
+      isDragging: false
     }
   },
   methods: {
@@ -421,11 +436,56 @@ export default {
     triggerFileInput() {
       this.$refs.fileInput.click()
     },
+    handleDragOver(e) {
+      e.preventDefault();
+      this.isDragging = true;
+    },
+
+    handleDragLeave(e) {
+      e.preventDefault();
+      this.isDragging = false;
+    },
+
+    handleDrop(e) {
+      this.isDragging = false;
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        this.handleFileUpload({ target: { files } });
+      }
+    },
+
+    // Модифицируем существующий метод
     handleFileUpload(event) {
-      this.selectedFiles = Array.from(event.target.files)
-      // Здесь можно добавить обработку файлов, превью и т.д.
-      console.log('Selected files:', this.selectedFiles)
+      // Получаем файлы из input или drag and drop
+      const files = event.target?.files || event.dataTransfer?.files;
+
+      if (!files || files.length === 0) return;
+
+      // Очищаем предыдущие превью
+      this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview));
+      this.previewFiles = [];
+
+      // Обрабатываем каждый файл
+      Array.from(files).forEach(file => {
+        // Проверяем тип файла (добавьте нужные MIME-типы)
+        if (!file.type.match(/(image\/|video\/).*/)) {
+          console.warn('Неподдерживаемый тип файла:', file.type);
+          return;
+        }
+
+        // Создаем объект с превью
+        const fileWithPreview = {
+          file,
+          preview: URL.createObjectURL(file),
+          type: file.type
+        };
+
+        this.previewFiles.push(fileWithPreview);
+      });
     }
+  },
+  beforeUnmount() {
+    this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview))
   }
 }
 </script>
