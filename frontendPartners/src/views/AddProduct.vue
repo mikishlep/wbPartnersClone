@@ -47,7 +47,7 @@
                       </div>
                     </div>
                   </div>
-                  <form class="card-form-form">
+                  <form class="card-form-form" @submit.prevent>
                     <div class="card-form-subject-selector">
                       <div class="subject-selector">
                         <div class="subject-selector-warning">
@@ -155,17 +155,26 @@
                                         </div>
                                       </div>
                                       <div class="uploader-button-choose">
-                                        <button class="choose-media btn-settings">
+                                        <button class="choose-media btn-settings" @click="triggerFileInput">
                                           <span class="caption">Выбрать</span>
                                         </button>
                                       </div>
                                     </button>
-                                    <input accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
-                                           autocomplete="off" class="media-upload-input" id="photo" multiple name="photo"
-                                           type="file">
+                                    <input
+                                        ref="fileInput"
+                                        @change="handleFileUpload"
+                                        accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
+                                        autocomplete="off"
+                                        class="media-upload-input"
+                                        id="photo"
+                                        multiple name="photo"
+                                        type="file"
+                                    >
                                   </div>
                                   <div class="card-media-files-editor-media-files">
-
+                                    <div v-for="(file, index) in selectedFiles" :key="index">
+                                      {{ file.name }}
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="card-media-files-editor-open-photo">
@@ -383,7 +392,8 @@ export default {
       variantItem: {
         title: 'Укажите наименование'
       },
-      isWidgetContentVisible: false
+      isWidgetContentVisible: false,
+      selectedFiles: []
     }
   },
   methods: {
@@ -407,6 +417,14 @@ export default {
     },
     toggleWidgetContent() {
       this.isWidgetContentVisible = !this.isWidgetContentVisible;
+    },
+    triggerFileInput() {
+      this.$refs.fileInput.click()
+    },
+    handleFileUpload(event) {
+      this.selectedFiles = Array.from(event.target.files)
+      // Здесь можно добавить обработку файлов, превью и т.д.
+      console.log('Selected files:', this.selectedFiles)
     }
   }
 }
