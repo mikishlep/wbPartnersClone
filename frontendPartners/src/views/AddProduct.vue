@@ -160,7 +160,7 @@
                                         </div>
                                       </div>
                                       <div class="uploader-button-choose">
-                                        <button class="choose-media btn-settings" @click="triggerFileInput">
+                                        <button class="choose-media btn-settings">
                                           <span class="caption">Выбрать</span>
                                         </button>
                                       </div>
