@@ -437,7 +437,7 @@ export default {
 
       // Обрабатываем каждый файл
       Array.from(files).forEach(file => {
-        // Проверяем тип файла (добавьте  нужные MIME-типы)
+        // Проверяем тип файла (добавьте нужные MIME-типы)
         if (!file.type.match(/(image\/|video\/).*/)) {
           console.warn('Неподдерживаемый тип файла:', file.type);
           return;
