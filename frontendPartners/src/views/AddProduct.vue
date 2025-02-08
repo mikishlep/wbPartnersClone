@@ -9,12 +9,12 @@
                 <div class="add-product-components">
                   <div class="card-form-variants">
                     <div class="variants-header">
-          <span class="var-header-text" style="color: #000">
-            Варианты
-          </span>
+                      <span class="var-header-text" style="color: #000">
+                        Варианты
+                      </span>
                       <span class="var-header-text-count" style="color: #bbb7c9">
-            1 из 30
-          </span>
+                        1 из 30
+                      </span>
                     </div>
                     <div class="variants-option">
                       <div class="variants-option-card">
@@ -23,10 +23,10 @@
                             <div class="variant-item-image-empty">
                               <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.8391 17.6641L2.33906 1.16406L1.16406 2.33906L3.08906 4.2724V15.2474C3.08906 16.1641
-                    3.83906 16.9141 4.75573 16.9141H15.7307L17.6557 18.8391L18.8391 17.6641ZM4.75573
-                    15.2474V5.93906L10.4557 11.6391L9.75573 12.5141L8.08906 10.2474L5.58906 13.5807H12.3974L14.0641
-                    15.2474H4.75573ZM7.11406 3.58073L5.4474 1.91406H16.4224C17.3391 1.91406 18.0891 2.66406 18.0891
-                    3.58073V14.5557L16.4224 12.8891V3.58073H7.11406Z" fill="#D1CFD7"></path>
+                                  3.83906 16.9141 4.75573 16.9141H15.7307L17.6557 18.8391L18.8391 17.6641ZM4.75573
+                                  15.2474V5.93906L10.4557 11.6391L9.75573 12.5141L8.08906 10.2474L5.58906 13.5807H12.3974L14.0641
+                                  15.2474H4.75573ZM7.11406 3.58073L5.4474 1.91406H16.4224C17.3391 1.91406 18.0891 2.66406 18.0891
+                                  3.58073V14.5557L16.4224 12.8891V3.58073H7.11406Z" fill="#D1CFD7"></path>
                               </svg>
                             </div>
                           </div>
@@ -54,17 +54,17 @@
                           <div class="subject-selector-warning-icon">
                             <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                               <path clip-rule="evenodd" d="M1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23
-                  5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3
-                  16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM13.0036
-                  13.9983H14.003V15.9983H10.003V13.9983H11.003V11.9983H10.003V9.99835H13.0036V13.9983ZM13.0007
-                  7.99835C13.0007 8.55063 12.5528 8.99835 12.0003 8.99835C11.4479 8.99835 11 8.55063 11 7.99835C11
-                  7.44606 11.4479 6.99835 12.0003 6.99835C12.5528 6.99835 13.0007 7.44606 13.0007 7.99835Z"
+                                5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3
+                                16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM13.0036
+                                13.9983H14.003V15.9983H10.003V13.9983H11.003V11.9983H10.003V9.99835H13.0036V13.9983ZM13.0007
+                                7.99835C13.0007 8.55063 12.5528 8.99835 12.0003 8.99835C11.4479 8.99835 11 8.55063 11 7.99835C11
+                                7.44606 11.4479 6.99835 12.0003 6.99835C12.5528 6.99835 13.0007 7.44606 13.0007 7.99835Z"
                                     fill="#5067DE" fill-rule="evenodd"></path>
                             </svg>
                           </div>
                           <span class="subject-selector-warning-text">
-                Добавьте фото, название, описание и категорию продавца
-              </span>
+                            Добавьте фото, название, описание и категорию продавца
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -80,116 +80,87 @@
                                      @drop.prevent="handleDrop"
                                      :class="{ 'dragover': isDragging }"
                                 >
-                                  <div class="uploader-button">
-                                    <button class="uploader-button-button-icon" type="button" @click="triggerFileInput">
-                                      <div class="uploader-button-icon">
-                                        <svg fill="none" height="112" viewBox="0 0 145 112" width="145"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                          <rect fill="#F7F7FA" height="67.9879" rx="7.11874" stroke="#D1CFD7"
-                                                stroke-dasharray="2 2" stroke-width="0.5"
-                                                transform="rotate(-9.33849 0.7228 38.6241)" width="52.0605" x="0.7228"
-                                                y="38.6241"></rect>
-                                          <g filter="url(#filter0_d_2035_118574)">
-                                            <rect fill="#F7F7FA" height="68.4879" rx="7.36874"
-                                                  transform="rotate(4.51004 39.666 20.7344)" width="52.5605" x="39.666"
-                                                  y="20.7344"></rect>
-                                            <rect height="67.9879" rx="7.11874" stroke="#D1CFD7" stroke-dasharray="2 2"
-                                                  stroke-width="0.5" transform="rotate(4.51004 39.8956 21.0033)"
-                                                  width="52.0605" x="39.8956" y="21.0033"></rect>
-                                          </g>
-                                          <g filter="url(#filter1_d_2035_118574)">
-                                            <rect fill="#F7F7FA" height="68.4879" rx="7.36874"
-                                                  transform="rotate(16.9159 83.2754 6)" width="52.5604" x="83.2754"
-                                                  y="6"></rect>
-                                            <rect height="67.9879" rx="7.11874" stroke="#D1CFD7" stroke-dasharray="2 2"
-                                                  stroke-width="0.5" transform="rotate(16.9159 83.4418 6.31193)"
-                                                  width="52.0604" x="83.4418" y="6.31193"></rect>
-                                          </g>
-                                          <defs>
-                                            <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"
-                                                    height="97.2969" id="filter0_d_2035_118574" width="82.6719" x="21.8359"
-                                                    y="14.2891">
-                                              <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-                                              <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix"
-                                                             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                              <feOffset dy="6"></feOffset>
-                                              <feGaussianBlur stdDeviation="6.5"></feGaussianBlur>
-                                              <feColorMatrix type="matrix"
-                                                             values="0 0 0 0 0.125417 0 0 0 0 0.142829 0 0 0 0 0.232917 0 0 0 0.1 0"></feColorMatrix>
-                                              <feBlend in2="BackgroundImageFix" mode="normal"
-                                                       result="effect1_dropShadow_2035_118574"></feBlend>
-                                              <feBlend in="SourceGraphic" in2="effect1_dropShadow_2035_118574" mode="normal"
-                                                       result="shape"></feBlend>
-                                            </filter>
-                                            <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"
-                                                    height="103.172" id="filter1_d_2035_118574" width="92.5664" x="52.1719"
-                                                    y="0.824219">
-                                              <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-                                              <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix"
-                                                             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                              <feOffset dy="6"></feOffset>
-                                              <feGaussianBlur stdDeviation="6.5"></feGaussianBlur>
-                                              <feColorMatrix type="matrix"
-                                                             values="0 0 0 0 0.125417 0 0 0 0 0.142829 0 0 0 0 0.232917 0 0 0 0.1 0"></feColorMatrix>
-                                              <feBlend in2="BackgroundImageFix" mode="normal"
-                                                       result="effect1_dropShadow_2035_118574"></feBlend>
-                                              <feBlend in="SourceGraphic" in2="effect1_dropShadow_2035_118574" mode="normal"
-                                                       result="shape"></feBlend>
-                                            </filter>
-                                          </defs>
-                                        </svg>
-                                      </div>
-                                      <div class="uploader-button-add">Загрузите файлы или перетащите их сюда</div>
-                                      <div class="uploader-button-requirements-tooltip">
-                                        <div class="requirements-tooltip">
-                                          <div class="requirements-tooltip-trigger" role="button" tabindex="-1">
-                                            <div class="requirements-tooltip-text">Какими должны быть фото и видео</div>
-                                            <div class="requirements-tooltip-icon">
-                                              <svg fill="none" height="16" viewBox="0 0 16 16" width="16"
-                                                   xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7.33398 4.66536H8.66732V5.9987H7.33398V4.66536ZM7.33398
-                                    7.33203H8.66732V11.332H7.33398V7.33203ZM8.00065 1.33203C4.32065 1.33203 1.33398
-                                    4.3187 1.33398 7.9987C1.33398 11.6787 4.32065 14.6654 8.00065 14.6654C11.6807
-                                    14.6654 14.6673 11.6787 14.6673 7.9987C14.6673 4.3187 11.6807 1.33203 8.00065
-                                    1.33203ZM8.00065 13.332C5.06065 13.332 2.66732 10.9387 2.66732 7.9987C2.66732
-                                    5.0587 5.06065 2.66536 8.00065 2.66536C10.9407 2.66536 13.334 5.0587 13.334
-                                    7.9987C13.334 10.9387 10.9407 13.332 8.00065 13.332Z" fill="#D1CFD7"></path>
-                                              </svg>
+                                  <template v-if="previewFiles.length === 0">
+                                    <div class="uploader-button">
+                                      <button class="uploader-button-button-icon" type="button" @click="triggerFileInput">
+                                        <div class="uploader-button-icon">
+                                          <svg fill="none" height="112" viewBox="0 0 145 112" width="145" xmlns="http://www.w3.org/2000/svg">
+                                            <rect fill="#F7F7FA" height="67.9879" rx="7.11874" stroke="#D1CFD7" stroke-dasharray="2 2" stroke-width="0.5" transform="rotate(-9.33849 0.7228 38.6241)" width="52.0605" x="0.7228" y="38.6241"></rect><g filter="url(#filter0_d_2035_118574)"><rect fill="#F7F7FA" height="68.4879" rx="7.36874" transform="rotate(4.51004 39.666 20.7344)" width="52.5605" x="39.666" y="20.7344"></rect><rect height="67.9879" rx="7.11874" stroke="#D1CFD7" stroke-dasharray="2 2" stroke-width="0.5" transform="rotate(4.51004 39.8956 21.0033)" width="52.0605" x="39.8956" y="21.0033"></rect></g><g filter="url(#filter1_d_2035_118574)"><rect fill="#F7F7FA" height="68.4879" rx="7.36874" transform="rotate(16.9159 83.2754 6)" width="52.5604" x="83.2754" y="6"></rect><rect height="67.9879" rx="7.11874" stroke="#D1CFD7" stroke-dasharray="2 2" stroke-width="0.5" transform="rotate(16.9159 83.4418 6.31193)" width="52.0604" x="83.4418" y="6.31193"></rect></g><defs><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="97.2969" id="filter0_d_2035_118574" width="82.6719" x="21.8359" y="14.2891"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="6"></feOffset><feGaussianBlur stdDeviation="6.5"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0.125417 0 0 0 0 0.142829 0 0 0 0 0.232917 0 0 0 0.1 0"></feColorMatrix><feBlend in2="BackgroundImageFix" mode="normal" result="effect1_dropShadow_2035_118574"></feBlend><feBlend in="SourceGraphic" in2="effect1_dropShadow_2035_118574" mode="normal" result="shape"></feBlend></filter><filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="103.172" id="filter1_d_2035_118574" width="92.5664" x="52.1719" y="0.824219"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix><feOffset dy="6"></feOffset><feGaussianBlur stdDeviation="6.5"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0.125417 0 0 0 0 0.142829 0 0 0 0 0.232917 0 0 0 0.1 0"></feColorMatrix><feBlend in2="BackgroundImageFix" mode="normal" result="effect1_dropShadow_2035_118574"></feBlend><feBlend in="SourceGraphic" in2="effect1_dropShadow_2035_118574" mode="normal" result="shape"></feBlend></filter></defs>
+                                          </svg>
+                                        </div>
+                                        <div class="uploader-button-add">Загрузите файлы или перетащите их сюда</div>
+                                        <div class="uploader-button-requirements-tooltip">
+                                          <div class="requirements-tooltip">
+                                            <div class="requirements-tooltip-trigger" role="button" tabindex="-1">
+                                              <div class="requirements-tooltip-text">Какими должны быть фото и видео</div>
+                                              <div class="requirements-tooltip-icon">
+                                                <svg fill="none" height="16" viewBox="0 0 16 16" width="16"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                  <path d="M7.33398 4.66536H8.66732V5.9987H7.33398V4.66536ZM7.33398
+                                                  7.33203H8.66732V11.332H7.33398V7.33203ZM8.00065 1.33203C4.32065 1.33203 1.33398
+                                                  4.3187 1.33398 7.9987C1.33398 11.6787 4.32065 14.6654 8.00065 14.6654C11.6807
+                                                  14.6654 14.6673 11.6787 14.6673 7.9987C14.6673 4.3187 11.6807 1.33203 8.00065
+                                                  1.33203ZM8.00065 13.332C5.06065 13.332 2.66732 10.9387 2.66732 7.9987C2.66732
+                                                  5.0587 5.06065 2.66536 8.00065 2.66536C10.9407 2.66536 13.334 5.0587 13.334
+                                                  7.9987C13.334 10.9387 10.9407 13.332 8.00065 13.332Z" fill="#D1CFD7"></path>
+                                                </svg>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                      <div class="uploader-button-choose">
-                                        <button class="choose-media btn-settings">
-                                          <span class="caption">Выбрать</span>
-                                        </button>
-                                      </div>
-                                    </button>
-                                    <input
-                                        ref="fileInput"
-                                        @change="handleFileUpload"
-                                        accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
-                                        autocomplete="off"
-                                        class="media-upload-input"
-                                        id="photo"
-                                        multiple name="photo"
-                                        type="file"
-                                    >
-                                  </div>
-                                  <div class="card-media-files-editor-media-files">
-                                    <div v-for="(file, index) in previewFiles" :key="index" class="preview-item">
-                                      <img
-                                          v-if="file.type.startsWith('image/')"
-                                          :src="file.preview"
-                                          alt="Preview"
-                                          class="preview-image"
+                                        <div class="uploader-button-choose">
+                                          <button class="choose-media btn-settings">
+                                            <span class="caption">Выбрать</span>
+                                          </button>
+                                        </div>
+                                      </button>
+                                      <input
+                                          ref="fileInput"
+                                          @change="handleFileUpload"
+                                          accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
+                                          autocomplete="off"
+                                          class="media-upload-input"
+                                          id="photo"
+                                          multiple name="photo"
+                                          type="file"
                                       >
-                                      <div v-else class="file-info">
-                                        <svg><!-- иконка для видео --></svg>
-                                        <span>{{ file.name }}</span>
+                                    </div>
+                                    <div class="card-media-files-editor-media-files">
+                                      <div v-for="(file, index) in previewFiles" :key="index" class="preview-item">
+                                        <img
+                                            v-if="file.type.startsWith('image/')"
+                                            :src="file.preview"
+                                            alt="Preview"
+                                            class="preview-image"
+                                        >
+                                        <div v-else class="file-info">
+                                          <svg><!-- иконка для видео --></svg>
+                                          <span>{{ file.name }}</span>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  </template>
+                                  <template v-else>
+                                    <div class="card-media-files-editor-media-files">
+                                      <div role="button" tabindex="-1" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-0" class="sortable-item" style="touch-action: none">
+                                        <div class="media-render-photo">
+                                          <div class="media-render-photo-labels"></div>
+                                          <div class="media-render-photo-dropdown"></div>
+                                          <img class="media-render-photo-image" src="" alt="0">
+                                          <input
+                                              accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
+                                              autocomplete="off"
+                                              class="media-upload-input"
+                                              id="photo"
+                                              name="photo"
+                                              type="file"
+                                          >
+                                        </div>
+                                      </div>
+                                      <div id="DndDescribedBy-0" style="display: none;"></div>
+                                      <div id="DndLiveRegion-0" role="status" aria-live="assertive" aria-atomic="true"></div>
+                                    </div>
+                                  </template>
                                 </div>
                                 <div class="card-media-files-editor-open-photo">
                                   <button class="photo-edit-gradient-button" type="button">
@@ -206,8 +177,8 @@
                                           fill="currentColor"></path>
                                     </svg>
                                     <span class="photo-edit-text" data-name="text">
-                          Открыть редактор
-                        </span>
+                                      Открыть редактор
+                                    </span>
                                   </button>
                                 </div>
                                 <div class="card-media-files-editor-studio">
@@ -256,9 +227,9 @@
                                           </defs>
                                         </svg>
                                         <div class="subscribe-item-text">
-                              <span class="subscribe-text-inside">
-                                Джем
-                              </span>
+                                          <span class="subscribe-text-inside">
+                                            Джем
+                                          </span>
                                         </div>
                                       </div>
                                     </button>
@@ -280,14 +251,14 @@
                                       </div>
                                       <div class="media-upload-by-link-button">
                                         <button class="button-link">
-                              <span class="button-link-icon">
-                                <svg fill="none" height="24" viewBox="-2 -3 24 24" width="24"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                  <path clip-rule="evenodd"
-                                        d="M14.5858 10.0001H0V8.00008H14.5858L8.29289 1.70718L9.70711 0.292969L18.4142 9.00008L9.70711 17.7072L8.29289 16.293L14.5858 10.0001Z"
-                                        fill="#4e4e53" fill-rule="evenodd"></path>
-                                </svg>
-                              </span>
+                                          <span class="button-link-icon">
+                                            <svg fill="none" height="24" viewBox="-2 -3 24 24" width="24"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                              <path clip-rule="evenodd"
+                                                    d="M14.5858 10.0001H0V8.00008H14.5858L8.29289 1.70718L9.70711 0.292969L18.4142 9.00008L9.70711 17.7072L8.29289 16.293L14.5858 10.0001Z"
+                                                    fill="#4e4e53" fill-rule="evenodd"></path>
+                                            </svg>
+                                          </span>
                                         </button>
                                       </div>
                                     </div>
@@ -307,17 +278,17 @@
                         <div class="form-actions-cancel" style="margin-right: 16px;">
                           <router-link to="/">
                             <button class="action-back" type="button">
-                <span class="back-btn-text">
-                  К списку товаров
-                </span>
+                              <span class="back-btn-text">
+                                К списку товаров
+                              </span>
                             </button>
                           </router-link>
                         </div>
                         <div class="form-actions-submit">
                           <button class="submit-action-button" type="button">
-                <span class="submit-action-btn-text">
-                  Создать и завершить
-                </span>
+                            <span class="submit-action-btn-text">
+                              Создать и завершить
+                            </span>
                           </button>
                         </div>
                       </div>
@@ -345,15 +316,14 @@
                             </svg>
                           </div>
                           <div class="widget-wrapper-title">
-                <span class="widget-wrapper-title-text">
-                  Требования к медиа
-                </span>
+                            <span class="widget-wrapper-title-text">
+                              Требования к медиа
+                            </span>
                           </div>
                           <div class="widget-wrapper-toggle">
                             <svg :class="{'rotated': isWidgetContentVisible}" fill="none" height="16" viewBox="-3 -7 24 24"
                                  width="16" xmlns="http://www.w3.org/2000/svg">
-                              <path clip-rule="evenodd" d="M16.293 0.292969L17.7072 1.70718L9.00008 10.4143L0.292969
-                  1.70718L1.70718 0.292969L9.00008 7.58586L16.293 0.292969Z" fill="#4e4e53" fill-rule="evenodd"></path>
+                              <path clip-rule="evenodd" d="M16.293 0.292969L17.7072 1.70718L9.00008 10.4143L0.292969 1.70718L1.70718 0.292969L9.00008 7.58586L16.293 0.292969Z" fill="#4e4e53" fill-rule="evenodd"></path>
                             </svg>
                           </div>
                         </div>
@@ -941,6 +911,10 @@ export default {
   width: 100%;
 }
 
+.uploader-button-button-icon:hover {
+  background: #f0f0f3;
+}
+
 .media-upload-input {
   display: none;
 }
@@ -1046,16 +1020,10 @@ export default {
   width: 100%;
 }
 
-@keyframes gradientShift__UeVAokpGM2 {
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
+.photo-edit-gradient-button:hover {
+  box-shadow: 0 2px 4px #0000000d;
+  filter: brightness(1.02);
+  transform: scale(1.007);
 }
 
 .photo-edit-text {
@@ -1115,6 +1083,10 @@ export default {
 .tag-studio-btn {
   background-color: #fafafd !important;
   color: #000 !important;
+}
+
+.choose-media:hover {
+  background-color: #dcdce0;
 }
 
 /* -----------UPLOAD BY LINK---------*/
@@ -1211,5 +1183,85 @@ export default {
 .button-link-icon > svg {
   height: 24px;
   width: 34px;
+}
+
+/* ---------V ELSE MEDIA EDITOR-------*/
+
+.card-media-files-editor-media-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+#DndLiveRegion-0 {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0px;
+  padding: 0px;
+  overflow: hidden;
+  clip: rect(0px, 0px, 0px, 0px);
+  clip-path: inset(100%);
+  white-space: nowrap;
+}
+
+.sortable-item {
+  min-height: 124px;
+  min-width: 101px;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  z-index: 5;
+}
+
+.sortable-item:first-child {
+  max-height: 426px;
+  max-width: 312px;
+  min-height: 426px;
+  min-width: 312px;
+}
+
+.media-render-photo {
+  background-color: #f7f7fa;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.media-render-photo-labels {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: flex-start;
+  left: 8px;
+  position: absolute;
+  top: 8px;
+}
+
+.media-render-photo-dropdown {
+  opacity: 0;
+  transition: opacity .1s ease-in-out;
+}
+
+.media-render-photo-image {
+  border-style: none;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
 }
 </style>
