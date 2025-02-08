@@ -45,7 +45,7 @@
                               </div>
                             </div>
                             <div class="variant-item-content-title">
-                              {{ variantItem.title }}
+                              {{ variantItem.title || 'Укажите наименование' }}
                             </div>
                             <div class="variant-item-content-vendor"></div>
                             <div class="variant-item-content-charcs-wrapper"></div>
@@ -152,7 +152,7 @@
                                     <div class="card-media-files-editor-media-files">
                                       <!-- Проверяем, что в массиве есть хотя бы один элемент -->
                                       <template v-if="previewFiles.length">
-                                        <div v-for="(file, index) in previewFiles" :key="index" v-if="index !== 0" role="button" class="sortable-item" @mouseover="hoveredIndex = index" @mouseleave="hoveredIndex = null">
+                                        <div v-for="(file, index) in previewFiles" :key="index" v-if="index !== 0" role="button" class="sortable-item" @mouseover="hoveredIndex = index" @mouseleave="hoveredIndex = null" draggable="false" @dragstart.prevent>
                                           <div class="media-render-photo">
                                             <div class="media-render-photo-labels" v-if="index === 0">
                                               <div class="media-render-photo-main-label">
@@ -319,7 +319,46 @@
                             </div>
                           </div>
                           <div class="variants-variant-fields">
-
+                            <div class="variants-main-fields">
+                              <!--отсюда стили-->
+                              <div class="main-fields">
+                                <div class="main-fields-title">
+                                  <span class="main-fields-text">Основная информация</span>
+                                  <div class="main-fields-rating">
+                                    <div class="laag-tooltip">
+                                      <div class="rating-tag" :style="getRatingStyle(product.rating)">Качество карточки: {{ product.rating }}</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="field-wrapper" id="title">
+                                  <div class="field-wrapper-label-wrapper">
+                                    <div class="field-wrapper-label">
+                                      <span class="field-wrapper-label-text">Наименование</span>
+                                    </div>
+                                  </div>
+                                  <div class="field-wrapper-field">
+                                    <div class="title-input" data-error="false">
+                                      <div class="title-input-field" id="title-input-field">
+                                        <div class="editable">
+                                          <div style="display: inline-block; position: relative; width: 100%; height: 40px;">
+                                            <div style="position: absolute; overflow: hidden; top: 0px; left: 0px; width: 100%; height: 40px;"></div>
+                                            <textarea v-model="variantItem.title" class="editable-input" id="editable-input" rows="1" spellcheck="false" style="resize: none; width: 100%; min-height: 40px; background: transparent; margin: 0px; caret-color: rgb(0, 0, 0); height: 38px; position: absolute;"></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="field-wrapper" id="subjectInfo.supplierSubject"></div>
+                                <div class="main-fields-articles"></div>
+                                <div class="separated-charcs separated-charcs-single"></div>
+                                <div class="separated-charcs separated-charcs-single"></div>
+                              </div>
+                              <!--отсюда стили-->
+                            </div>
+                            <div class="variants-description"></div>
+                            <div class="characteristics"></div>
+                            <div class="rich-content-v2"></div>
                           </div>
                         </div>
                       </div>
@@ -425,7 +464,7 @@ export default {
         rating: 0,
       },
       variantItem: {
-        title: 'Укажите наименование'
+        title: ''
       },
       isWidgetContentVisible: false,
       previewFiles: [],
@@ -1088,7 +1127,7 @@ export default {
   text-transform: none;
 }
 
-/* ---------PHOTO SUDIO BTN---------*/
+/* ---------PHOTO STUDIO BTN---------*/
 
 .photo-studio-btn {
   opacity: .32;
@@ -1417,10 +1456,127 @@ export default {
   -webkit-user-select: none;
   user-select: none;
   z-index: 5;
+  touch-action: none;
 }
 
 .sortable-item:nth-child(1n+2) {
   height: 124px;
   width: 101px;
+}
+
+/* -----------FIELDS MIDDLE---------*/
+
+.variants-description {
+  padding-bottom: 16px;
+}
+
+.rich-content-v2 {
+  align-items: flex-start;
+  background-color: #f7f7fa;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 16px;
+}
+
+.main-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-fields-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.main-fields-text {
+  text-decoration: none;
+  color: #000;
+  font-family: latobold, arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  word-wrap: break-word;
+  margin: 0;
+  text-decoration: inherit;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.field-wrapper-label-wrapper {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.field-wrapper-label {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.field-wrapper-label-text {
+  box-sizing: border-box;
+  color: #77767e;
+  font-family: lato, arial, sans-serif;
+  font-size: 13px;
+  line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.field-wrapper-field {
+  width: 100%;
+}
+
+.title-input {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title-input-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.editable {
+  align-items: flex-start;
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.editable-input {
+  background: #0000;
+  border: 1px solid #d1cfd7;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #000;
+  font-family: lato, arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  outline: none;
+  padding: 10px 30px 10px 12px;
+  position: relative;
+  resize: none;
+  width: 100%;
+  word-break: break-word;
+  z-index: 2;
 }
 </style>
