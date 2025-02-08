@@ -20,7 +20,7 @@
                       <div class="variants-option-card">
                         <div class="variant-item">
                           <div class="variant-item-image">
-                            <div class="variant-item-image-empty">
+                            <div v-if="previewFiles.length === 0" class="variant-item-image-empty">
                               <svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.8391 17.6641L2.33906 1.16406L1.16406 2.33906L3.08906 4.2724V15.2474C3.08906 16.1641
                                   3.83906 16.9141 4.75573 16.9141H15.7307L17.6557 18.8391L18.8391 17.6641ZM4.75573
@@ -29,6 +29,14 @@
                                   3.58073V14.5557L16.4224 12.8891V3.58073H7.11406Z" fill="#D1CFD7"></path>
                               </svg>
                             </div>
+                            <template v-else>
+                              <img
+                                  v-if="previewFiles[0].type.startsWith('image/')"
+                                  :src="previewFiles[0].preview"
+                                  alt=""
+                                  class="variant-item-preview"
+                              >
+                            </template>
                           </div>
                           <div class="variant-item-content">
                             <div class="variant-item-content-rate">
@@ -142,23 +150,66 @@
                                   </template>
                                   <template v-else>
                                     <div class="card-media-files-editor-media-files">
-                                      <div role="button" tabindex="-1" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-0" class="sortable-item" style="touch-action: none">
-                                        <div class="media-render-photo">
-                                          <div class="media-render-photo-labels"></div>
-                                          <div class="media-render-photo-dropdown"></div>
-                                          <img class="media-render-photo-image" src="" alt="0">
-                                          <input
-                                              accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
-                                              autocomplete="off"
-                                              class="media-upload-input"
-                                              id="photo"
-                                              name="photo"
-                                              type="file"
-                                          >
+                                      <!-- Проверяем, что в массиве есть хотя бы один элемент -->
+                                      <template v-if="previewFiles.length">
+                                        <div v-for="(file, index) in previewFiles" :key="index" v-if="index !== 0" role="button" class="sortable-item" @mouseover="hoveredIndex = index" @mouseleave="hoveredIndex = null">
+                                          <div class="media-render-photo">
+                                            <div class="media-render-photo-labels" v-if="index === 0">
+                                              <div class="media-render-photo-main-label">
+                                                <div class="media-render-photo-label-icon">
+                                                  <svg fill="none" height="16" viewBox="-3 -1 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                    <path clip-rule="evenodd" d="M8.17589 10.53C8.72233 9.76303 8.66135 8.9553 8.28244 7.50235C7.53307 4.62882 7.83147 3.05383 10.4148 1.18916L11.6757 0.279053L11.9807 1.80389C12.3048 3.42441 12.837 4.42671 14.2037 6.35464C14.258 6.43122 14.258 6.43122 14.3125 6.50815C16.2811 9.28542 17.0001 10.9596 17.0001 14C17.0001 17.6884 13.2714 21 9.00008 21C4.72849 21 1.00008 17.6888 1.00008 14C1.00008 13.9311 1.00015 13.9331 0.98847 13.6285C0.898114 11.2718 1.33389 9.42737 3.09715 7.43586C3.4697 7.01509 3.89316 6.61068 4.36971 6.22371L5.4217 5.36946L5.92774 6.62658C6.30166 7.55547 6.73978 8.28567 7.23469 8.82151C7.65387 9.27536 7.96482 9.84607 8.17589 10.53ZM4.59457 8.76166C3.2372 10.2947 2.91449 11.6606 2.987 13.5518C3.0005 13.9039 3.00008 13.8915 3.00008 14C3.00008 16.5279 5.78368 19 9.00008 19C12.2162 19 15.0001 16.5275 15.0001 14C15.0001 11.4582 14.4318 10.135 12.6808 7.6647C12.6266 7.58818 12.6266 7.58818 12.572 7.51125C11.5086 6.01111 10.8748 4.96759 10.4554 3.80052C9.77056 4.62118 9.81083 5.43739 10.2177 6.99766C10.9671 9.87118 10.6687 11.4462 8.08535 13.3108L6.61235 14.3741L6.50193 12.5608C6.43138 11.4023 6.16915 10.6156 5.76547 10.1785C5.36665 9.74668 5.00655 9.24115 4.68363 8.66279C4.65351 8.69566 4.62382 8.72862 4.59457 8.76166Z" fill="#fff" fill-rule="evenodd"></path>
+                                                  </svg>
+                                                </div>
+                                                <div class="media-render-photo-label-text">Главная</div>
+                                              </div>
+                                            </div>
+                                            <div class="media-render-photo-dropdown" :style="{ opacity: hoveredIndex === index ? 1 : 0 }">
+                                              <div class="media-dropdown" id="dropdown-container">
+                                                <button class="media-dropdown-actions" type="button" aria-label="actions">
+                                                  <svg fill="none" height="16" viewBox="-10 -3 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                    <path clip-rule="evenodd" d="M0 2C0 3.10457 0.89543 4 2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2ZM2 11C0.89543 11 0 10.1046 0 9C0 7.89543 0.89543 7 2 7C3.10457 7 4 7.89543 4 9C4 10.1046 3.10457 11 2 11ZM2 18C0.89543 18 0 17.1046 0 16C0 14.8954 0.89543 14 2 14C3.10457 14 4 14.8954 4 16C4 17.1046 3.10457 18 2 18Z" fill="#000" fill-rule="evenodd"></path>
+                                                  </svg>
+                                                </button>
+                                              </div>
+                                            </div>
+                                            <!-- Отображаем изображение, используя первый элемент массива -->
+                                            <img v-if="file.type.startsWith('image/')"
+                                                 class="media-render-photo-image"
+                                                 :src="file.preview"
+                                                 alt="Preview">
+                                            <input
+                                                accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
+                                                class="media-upload-input"
+                                                type="file"
+                                                @change="handleFileUpload"
+                                            >
+                                          </div>
                                         </div>
-                                      </div>
+                                      </template>
                                       <div id="DndDescribedBy-0" style="display: none;"></div>
-                                      <div id="DndLiveRegion-0" role="status" aria-live="assertive" aria-atomic="true"></div>
+                                      <div id="DndLiveRegion-0" role="status"></div>
+                                      <div class="uploader-button uploader-button-mini">
+                                        <button aria-label="add" class="uploader-button-button-icon uploader-button-button-icon-mini" type="button" @click="triggerFileInput">
+                                          <div class="uploader-button-plus uploader-button-plus-mini">
+                                            <svg fill="none" height="20" viewBox="-2 -2 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+                                              <path clip-rule="evenodd" d="M11 9H20V11H11V20H9V11H0V9H9V0H11V9Z" fill="#5067de" fill-rule="evenodd"></path>
+                                            </svg>
+                                          </div>
+                                          <span class="uploader-mini-text">Фото и видео</span>
+                                        </button>
+                                        <input
+                                            accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
+                                            class="media-upload-input"
+                                            type="file"
+                                            @change="handleFileUpload"
+                                            autocomplete="off"
+                                            multiple
+                                            name="photo"
+                                            id="photo"
+                                            ref="fileInput"
+                                        >
+                                      </div>
                                     </div>
                                   </template>
                                 </div>
@@ -378,7 +429,9 @@ export default {
       },
       isWidgetContentVisible: false,
       previewFiles: [],
-      isDragging: false
+      isDragging: false,
+      isHovered: false,
+      hoveredIndex: null,
     }
   },
   methods: {
@@ -426,36 +479,32 @@ export default {
 
     // Модифицируем существующий метод
     handleFileUpload(event) {
-      // Получаем файлы из input или drag and drop
       const files = event.target?.files || event.dataTransfer?.files;
-
       if (!files || files.length === 0) return;
 
       // Очищаем предыдущие превью
-      this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview));
-      this.previewFiles = [];
+      // this.previewFiles = [];
 
-      // Обрабатываем каждый файл
       Array.from(files).forEach(file => {
-        // Проверяем тип файла (добавьте нужные MIME-типы)
         if (!file.type.match(/(image\/|video\/).*/)) {
           console.warn('Неподдерживаемый тип файла:', file.type);
           return;
         }
 
-        // Создаем объект с превью
-        const fileWithPreview = {
-          file,
-          preview: URL.createObjectURL(file),
-          type: file.type
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewFiles.push({
+            file,
+            preview: e.target.result, // base64 строка
+            type: file.type
+          });
         };
-
-        this.previewFiles.push(fileWithPreview);
+        reader.readAsDataURL(file);
       });
-    }
+    },
   },
   beforeUnmount() {
-    this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview))
+    this.previewFiles = [];
   }
 }
 </script>
@@ -909,6 +958,7 @@ export default {
   padding: 32px;
   position: relative;
   width: 100%;
+  border-radius: 16px;
 }
 
 .uploader-button-button-icon:hover {
@@ -1263,5 +1313,114 @@ export default {
   object-fit: cover;
   object-position: center;
   width: 100%;
+}
+
+.media-render-photo-main-label {
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 #1b242c29;
+  display: flex;
+  opacity: .8;
+  width: fit-content;
+  background: #00000080;
+  padding: 4px 8px;
+}
+
+.media-render-photo-label-icon {
+  height: 16px;
+  margin-right: 2px;
+}
+
+.media-render-photo-label-text {
+  color: #fff;
+  font-size: 13px;
+  line-height: 13px;
+}
+
+.media-dropdown-actions {
+  align-items: center;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 #1b242c29;
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  outline: 0;
+  padding: 0;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 24px;
+  z-index: 2;
+}
+
+.variant-item-preview {
+  border-radius: 6px;
+  height: 110px;
+  object-fit: contain;
+  width: 76px;
+}
+
+/* ----------UPLOADER BUTTON MINI-----------*/
+
+.uploader-button-mini {
+  border: 1px dashed #d1cfd7;
+  border-radius: 8px;
+  height: 124px;
+  padding: 16px;
+  width: 101px;
+}
+
+.uploader-button-button-icon-mini {
+  gap: 6px;
+  padding: 0;
+  text-align: center;
+}
+
+.uploader-button-plus {
+  align-items: center;
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+  min-height: 64px;
+  min-width: 64px;
+}
+
+.uploader-button-plus-mini {
+  min-height: 0;
+  min-width: 0;
+}
+
+.uploader-mini-text {
+  text-decoration: none;
+  color: #767386;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+  margin: 0;
+  text-transform: none;
+}
+
+.uploader-button-mini:hover {
+  background: #f0f0f3;
+}
+
+.sortable-item {
+  min-height: 124px;
+  min-width: 101px;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  z-index: 5;
+}
+
+.sortable-item:nth-child(1n+2) {
+  height: 124px;
+  width: 101px;
 }
 </style>
