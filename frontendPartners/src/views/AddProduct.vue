@@ -142,23 +142,28 @@
                                   </template>
                                   <template v-else>
                                     <div class="card-media-files-editor-media-files">
-                                      <div role="button" tabindex="-1" aria-disabled="false" aria-roledescription="sortable" aria-describedby="DndDescribedBy-0" class="sortable-item" style="touch-action: none">
+                                      <div v-for="(file, index) in previewFiles"
+                                           :key="index"
+                                           role="button"
+                                           class="sortable-item">
                                         <div class="media-render-photo">
-                                          <div class="media-render-photo-labels"></div>
-                                          <div class="media-render-photo-dropdown"></div>
-                                          <img class="media-render-photo-image" src="" alt="0">
+                                          <img v-if="file.type.startsWith('image/')"
+                                               class="media-render-photo-image"
+                                               :src="file.preview"
+                                               :alt="`Preview ${index}`">
+                                          <div v-else class="file-info">
+                                            <!-- Ваш код для отображения видео -->
+                                            <span>{{ file.name }}</span>
+                                          </div>
                                           <input
                                               accept="image/jpg,image/png,image/jpeg,image/webp,video/mp4,video/quicktime"
-                                              autocomplete="off"
                                               class="media-upload-input"
-                                              id="photo"
-                                              name="photo"
                                               type="file"
-                                          >
+                                              @change="handleFileUpload">
                                         </div>
                                       </div>
                                       <div id="DndDescribedBy-0" style="display: none;"></div>
-                                      <div id="DndLiveRegion-0" role="status" aria-live="assertive" aria-atomic="true"></div>
+                                      <div id="DndLiveRegion-0" role="status"></div>
                                     </div>
                                   </template>
                                 </div>
@@ -426,36 +431,32 @@ export default {
 
     // Модифицируем существующий метод
     handleFileUpload(event) {
-      // Получаем файлы из input или drag and drop
       const files = event.target?.files || event.dataTransfer?.files;
-
       if (!files || files.length === 0) return;
 
       // Очищаем предыдущие превью
-      this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview));
       this.previewFiles = [];
 
-      // Обрабатываем каждый файл
       Array.from(files).forEach(file => {
-        // Проверяем тип файла (добавьте нужные MIME-типы)
         if (!file.type.match(/(image\/|video\/).*/)) {
           console.warn('Неподдерживаемый тип файла:', file.type);
           return;
         }
 
-        // Создаем объект с превью
-        const fileWithPreview = {
-          file,
-          preview: URL.createObjectURL(file),
-          type: file.type
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewFiles.push({
+            file,
+            preview: e.target.result, // base64 строка
+            type: file.type
+          });
         };
-
-        this.previewFiles.push(fileWithPreview);
+        reader.readAsDataURL(file);
       });
-    }
+    },
   },
   beforeUnmount() {
-    this.previewFiles.forEach(file => URL.revokeObjectURL(file.preview))
+    this.previewFiles = [];
   }
 }
 </script>
