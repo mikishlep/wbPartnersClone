@@ -1088,7 +1088,7 @@ export default {
   text-transform: none;
 }
 
-/* ---------PHOTO SUDIO BTN----------*/
+/* ---------PHOTO SUDIO BTN---------*/
 
 .photo-studio-btn {
   opacity: .32;
