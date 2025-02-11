@@ -69,11 +69,19 @@
             <div class="product-info">
               <div class="product-image" role="button" tabindex="0">
                 <img
+                    v-if="product.image && product.image !== '[]'"
                     :alt="product.name"
-                    :src="product.image"
+                    :src="getImageSrc(product.image)"
                     class="product-image__img"
                     :data-testid="'product-image-' + product.id"
                 />
+                <div v-else class="empty-image">
+                  <div class="image-preview-empty">
+                    <svg fill="none" height="24" viewBox="-2 -2 24 24" width="24" xmlns="http://www.w3.org/2000/svg" style="opacity: .3">
+                      <path clip-rule="evenodd" d="M2 0H18C19.1046 0 20 0.89543 20 2V18C20 19.1046 19.1046 20 18 20H2C0.89543 20 0 19.1046 0 18V2C0 0.89543 0.89543 0 2 0ZM2 2V13.5858L6 9.58579L9.5 13.0858L16 6.58579L18 8.58579V2H2ZM2 18V16.4142L6 12.4142L11.5858 18H2ZM18 18H14.4142L10.9142 14.5L16 9.41421L18 11.4142V18ZM12 6C12 4.34315 10.6569 3 9 3C7.34315 3 6 4.34315 6 6C6 7.65685 7.34315 9 9 9C10.6569 9 12 7.65685 12 6ZM8 6C8 5.44772 8.44771 5 9 5C9.55229 5 10 5.44772 10 6C10 6.55228 9.55229 7 9 7C8.44771 7 8 6.55228 8 6Z" fill="#4e4e53" fill-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                </div>
               </div>
               <div class="product-details" style="padding-left: 16px; width: 100%;">
                 <div class="product-title" data-testid="product-title" style="color: #4a4a59; line-height: 20px; font-size: 16px; margin-bottom: 4px;">
@@ -90,35 +98,54 @@
                 </div>
                 <div class="product-codes">
                     <span class="product-wb" data-testid="product-wb">
-                      Артикул WB: {{ product.wbArticle }}
+                      Артикул WB: {{ getPrimaryBarcode(product.Barcodes) }}
                     </span>
                   <span class="product-vendor" data-testid="product-vendor">
-                      Артикул продавца: {{ product.vendorCode }}
+                      Артикул продавца: {{ product.articul }}
                     </span>
                 </div>
                 <div class="product-rating" data-testid="product-rating">
                   <div class="rating-tag" :style="getRatingStyle(product.rating)">
-                      {{ product.rating }}
+                      6.5
                   </div>
                 </div>
               </div>
             </div>
           </td>
-          <td style="color: #bbb7c9;">{{ product.reviews }}</td>
+          <td style="color: #bbb7c9;">Нет отзывов</td>
           <td style="color: #77767e;">{{ product.stock }}</td>
-          <td style="color: #77767e;">{{ product.sizes }}</td>
-          <td style="color: #77767e;">{{ product.barcodes }}</td>
-          <td style="color: #bbb7c9;">{{ product.tags }}</td>
+          <td style="color: #77767e;">{{ getSizes(product.characters_in) }}</td>
+          <td style="color: #77767e;">
+            {{ getPrimaryBarcode(product.Barcodes) }}
+            <span v-if="getAdditionalBarcodeCount(product.Barcodes)" style="color: #bbb7c9;">
+              {{ getAdditionalBarcodeCount(product.Barcodes) }}
+            </span>
+          </td>
+          <td style="color: #bbb7c9;">
+            <svg fill="none" height="16" viewBox="-2 -2 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" d="M11 9H20V11H11V20H9V11H0V9H9V0H11V9Z" fill="#d1cfd7" fill-rule="evenodd"></path>
+            </svg>
+          </td>
           <td style="color: #bbb7c9;">{{ product.updatedAt }}</td>
-          <td class="colorTag" style="color: #77767e;">{{ product.colors }}</td>
+          <td class="colorTag" style="color: #77767e;">
+            {{ getPrimaryColor(product.characters_in) }}
+            <span v-if="getAdditionalColorCount(product.characters_in)"
+                  v-html="getAdditionalColorCount(product.characters_in)">
+            </span>
+          </td>
           <td class="goodRedact">
             <div class="goodRedactContent">
               <div class="goodRedactButtons">
                 <button class="buttonEdit" type="button" data-testid="edit-button-{{ product.id }}">
                   <svg fill="none" height="24" viewBox="-1 0 16 16" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M11.9557 0.227529L13.7721 2.04386C14.0755 2.34723 14.0755 2.84119 13.7721 3.14456L12.3486 4.56808L9.43153 1.65104L10.855 0.227529C11.1584 -0.0758429 11.6524 -0.0758429 11.9557 0.227529ZM0 13.9999V11.0829L8.60719 2.47568L11.5242 5.39272L2.91704 13.9999H0Z" fill="currentColor" fill-rule="evenodd"></path></svg>
                 </button>
-                <button class="buttonDelete" type="button" data-testid="delete-button-{{ product.id }}">
-                  <svg fill="none" height="24" viewBox="-2 -1 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M7 0H13C14.1046 0 15 0.89543 15 2V3H18C19.1046 3 20 3.89543 20 5V7C20 8.10457 19.1046 9 18 9H17.9199L17 20C17 21.1046 16.1046 22 15 22H5C3.89543 22 3 21.1046 3.00345 20.083L2.07987 9H2C0.89543 9 0 8.10457 0 7V5C0 3.89543 0.89543 3 2 3H5V2C5 0.89543 5.89543 0 7 0ZM2 5H5H15H18V7H2V5ZM4.08649 9H15.9132L15.0035 19.917L15 20H5L4.08649 9ZM13 2V3H7V2H13Z" fill="currentColor" fill-rule="evenodd"></path></svg>
+                <button class="buttonDelete"
+                        type="button"
+                        data-testid="delete-button-{{ product.id }}"
+                        @click="deleteProduct(product.id)">
+                  <svg fill="none" height="24" viewBox="-2 -1 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M7 0H13C14.1046 0 15 0.89543 15 2V3H18C19.1046 3 20 3.89543 20 5V7C20 8.10457 19.1046 9 18 9H17.9199L17 20C17 21.1046 16.1046 22 15 22H5C3.89543 22 3 21.1046 3.00345 20.083L2.07987 9H2C0.89543 9 0 8.10457 0 7V5C0 3.89543 0.89543 3 2 3H5V2C5 0.89543 5.89543 0 7 0ZM2 5H5H15H18V7H2V5ZM4.08649 9H15.9132L15.0035 19.917L15 20H5L4.08649 9ZM13 2V3H7V2H13Z" fill="currentColor" fill-rule="evenodd"></path>
+                  </svg>
                 </button>
               </div>
             </div>
@@ -131,6 +158,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+const baseURL = 'http://127.0.0.1:8000';
+
 export default {
   name: 'Products',
   data() {
@@ -142,65 +172,12 @@ export default {
         {label: 'Черновики', count: 0, testid: 'error-cards-tab-link'},
         {label: 'Корзина', count: 0, testid: 'basket-cards-tab-link'}
       ],
-      products: [
-        {
-          id: 1,
-          name: "Сварочный аппарат опто-волоконного кабеля аккумуляторный",
-          image:
-              "https://basket-19.wbbasket.ru/vol3257/part325771/325771037/images/c516x688/1.webp?1738745907760",
-          subcategory: "Сварочные аппараты",
-          brand: "Сварка полуавтомат",
-          wbArticle: "325771037",
-          vendorCode: "wb673331i9",
-          rating: "9.5",
-          reviews: 'Нет отзывов',
-          stock: 0,
-          sizes: "",
-          barcodes: "2042741959214",
-          tags: "",
-          updatedAt: "4.02 15:52",
-          colors: "Красный, Синий",
-          status: "active"
-        },
-        {
-          id: 2,
-          name: "Шторы",
-          image: "https://basket-19.wbbasket.ru/vol3210/part321011/321011232/images/c516x688/1.webp?1738745907760",
-          subcategory: "Шторы интерьерные",
-          brand: "ШТОРЫ ТУТ",
-          wbArticle: "321011232",
-          vendorCode: "wb3dqo3zlp",
-          rating: "6.2",
-          reviews: "Нет отзывов",
-          stock: 3,
-          sizes: "46, 55, 67",
-          barcodes: "2042676899647",
-          tags: "",
-          updatedAt: "4.02 9:15",
-          colors: "Черный, Белый",
-          status: "active"
-        },
-        {
-          id: 2,
-          name: "Сумка через плечо",
-          image: "https://basket-19.wbbasket.ru/vol3219/part321911/321911829/images/c516x688/1.webp?1738767133714",
-          subcategory: "Сумки",
-          brand: "",
-          wbArticle: "321911829",
-          vendorCode: "wb6sy9uq6l",
-          rating: "10",
-          reviews: "Нет отзывов",
-          stock: 10,
-          sizes: "",
-          barcodes: "2042676899647",
-          tags: "",
-          updatedAt: "31.01 23:44",
-          colors: "Черный",
-          status: "active"
-        }
-      ],
+      products: [],
       selectedProducts: []
     };
+  },
+  created() {
+    this.loadProducts();
   },
   computed: {
     filteredProducts() {
@@ -234,6 +211,193 @@ export default {
     }
   },
   methods: {
+    deleteProduct(id) {
+      axios.delete(`${baseURL}/api/products/${id}`)
+          .then(response => {
+            // Товар успешно удалён, обновляем список товаров
+            this.products = this.products.filter(product => product.id !== id);
+            console.log(`Товар с id ${id} удален`);
+          })
+          .catch(error => {
+            console.error(`Ошибка при удалении товара с id ${id}:`, error);
+          });
+    },
+    getPrimaryColor(characters_in) {
+      if (!characters_in) return '';
+      let arr = [];
+      try {
+        // Декодируем строку (заменяем HTML-сущности и экранированные слеши)
+        const decodedString = characters_in
+            .replace(/&quot;/g, '"')
+            .replace(/\\\\/g, '\\');
+        arr = JSON.parse(decodedString);
+      } catch (error) {
+        console.error('Ошибка парсинга characters_in:', error);
+        return '';
+      }
+      // Регулярное выражение для поиска цвета (игнорируется регистр)
+      const regex = /цвет/i;
+      // Находим объект, отвечающий за цвет
+      const colorObj = arr.find(item => {
+        if (!item.charcName) return false;
+        // Убираем экранирование символов
+        const cleanName = item.charcName.replace(/\\/g, '');
+        return regex.test(cleanName);
+      });
+      if (colorObj && colorObj.value) {
+        // Если значение содержит несколько цветов, разделённых запятыми
+        const colorsArr = colorObj.value
+            .split(',')
+            .map(color => color.trim())
+            .filter(color => color !== '');
+        return colorsArr[0] || '';
+      }
+      return '';
+    },
+
+    // Метод для получения количества оставшихся цветов с HTML-кодом плюса
+    getAdditionalColorCount(characters_in) {
+      if (!characters_in) return '';
+      let arr = [];
+      try {
+        const decodedString = characters_in
+            .replace(/&quot;/g, '"')
+            .replace(/\\\\/g, '\\');
+        arr = JSON.parse(decodedString);
+      } catch (error) {
+        console.error('Ошибка парсинга characters_in:', error);
+        return '';
+      }
+      const regex = /цвет/i;
+      const colorObj = arr.find(item => {
+        if (!item.charcName) return false;
+        const cleanName = item.charcName.replace(/\\/g, '');
+        return regex.test(cleanName);
+      });
+      if (colorObj && colorObj.value) {
+        const colorsArr = colorObj.value
+            .split(',')
+            .map(color => color.trim())
+            .filter(color => color !== '');
+        return colorsArr.length > 1 ? `&plus;${colorsArr.length - 1}` : '';
+      }
+      return '';
+    },
+    getPrimaryBarcode(barcodes) {
+      if (!barcodes) return '';
+      const arr = barcodes
+          .split(',')
+          .map(code => code.trim())
+          .filter(code => code !== '');
+      return arr[0] || '';
+    },
+    getAdditionalBarcodeCount(barcodes) {
+      if (!barcodes) return '';
+      const arr = barcodes
+          .split(',')
+          .map(code => code.trim())
+          .filter(code => code !== '');
+      return arr.length > 1 ? `+${arr.length - 1}` : '';
+    },
+    getSizes(characters_in) {
+      if (!characters_in) return ''; // Проверка на пустое значение
+      let arr = [];
+
+      try {
+        // Декодируем HTML-сущности и заменяем экранированные слеши
+        const decodedString = characters_in
+            .replace(/&quot;/g, '"')
+            .replace(/\\\\/g, '\\');
+
+        arr = JSON.parse(decodedString);
+      } catch (error) {
+        console.error('Ошибка парсинга characters_in:', error);
+        return '';
+      }
+
+      // Регулярное выражение для поиска размеров (учитываем разные варианты написания)
+      const regex = /(размер|размеры|р-р|р-мер)/i;
+
+      // Ищем первый подходящий параметр
+      const sizeObj = arr.find(item => {
+        if (!item.charcName) return false;
+        // Удаляем все экранирующие слеши из названия характеристики
+        const cleanName = item.charcName.replace(/\\/g, '');
+        return regex.test(cleanName);
+      });
+
+      return sizeObj?.value || '';
+    },
+    getImageSrc(imageField) {
+      // Если imageField — строка, например:
+      // "[{&quot;path&quot;:&quot;data:image/png;base64,...&quot;}]"
+      if (typeof imageField === 'string') {
+        // Заменяем HTML-кодированные кавычки на обычные
+        let fixedString = imageField.replace(/&quot;/g, '"');
+        try {
+          const parsed = JSON.parse(fixedString);
+          if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].path) {
+            return parsed[0].path;
+          }
+        } catch (error) {
+          console.error('Ошибка парсинга строки изображения:', error);
+        }
+      }
+      // Если imageField уже корректное или парсинг не удался — возвращаем его без изменений
+      return imageField;
+    },
+    loadProducts() {
+      axios.get(`${baseURL}/api/products`)
+          .then(response => {
+            const basicProducts = response.data;
+            // Запрашиваем полные данные по каждому товару
+            const productRequests = basicProducts.map(product => {
+              return axios.get(`${baseURL}/api/products/${product.id}`)
+                  .then(res => res.data)
+                  .catch(err => {
+                    console.error(`Ошибка для товара id ${product.id}:`, err);
+                    return null;
+                  });
+            });
+            Promise.all(productRequests)
+                .then(fullProducts => {
+                  // Фильтруем неудачные запросы
+                  const products = fullProducts.filter(prod => prod !== null);
+                  // Для каждого товара, если задано поле category (число), запрашиваем данные о категории
+                  const categoryRequests = products.map(product => {
+                    if (product.category) {
+                      return axios.get(`${baseURL}/api/catalogs/${product.category}`)
+                          .then(res => {
+                            // Из ответа получаем, например, поле name
+                            // И записываем его в поле, которое выводится как subcategory
+                            product.subcategory = res.data.name;
+                            return product;
+                          })
+                          .catch(err => {
+                            console.error(`Ошибка загрузки категории для товара id ${product.id}:`, err);
+                            return product;
+                          });
+                    } else {
+                      return product;
+                    }
+                  });
+                  return Promise.all(categoryRequests);
+                })
+                .then(updatedProducts => {
+                  this.products = updatedProducts.filter(prod => prod !== null).map(product => ({
+                    ...product,
+                    stock: Math.floor(Math.random() * 100) // случайное число от 0 до 99
+                  }));
+                  console.log('Обновленные товары:', this.products);
+                })
+                .catch(error => {
+                  console.error('Ошибка получения полных данных товаров:', error);
+                });
+          })
+          .catch(error => {
+            console.error('Ошибка получения списка товаров:', error);
+          });
+    },
     selectTab(index) {
       this.selectedTab = index;
     },
@@ -544,5 +708,22 @@ td.goodRedact {
   height: 16px;
   color: #b3b3b3;
   transition: fill 0.3s ease;
+}
+
+.empty-image {
+  border-radius: 8px;
+  height: 104px;
+  width: 72px;
+}
+
+.image-preview-empty {
+  align-items: center;
+  background-color: #f0f0f3;
+  border-radius: 8px;
+  display: flex;
+  height: 104px;
+  justify-content: center;
+  text-align: center;
+  width: 72px;
 }
 </style>
